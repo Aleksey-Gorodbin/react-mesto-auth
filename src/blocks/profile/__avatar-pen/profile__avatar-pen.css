@@ -1,0 +1,30 @@
+.profile__avatar-pen{
+  background-image: url('../../../images/pen-avatar.svg');
+  opacity: 0;
+  background-color: rgba(0, 0, 0, .8);
+  transition: opacity 0.5s;
+  border-radius: 50%;
+  background-size: 26px 26px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 120px;
+  height: 120px;
+  padding: 0;
+  position: absolute;
+  top: 40;
+  left: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+.profile__avatar-pen:hover{
+  opacity: 1;
+  transition: opacity 0.5s;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 690px) {
+  .profile__avatar-pen {
+    top: 38px;
+  }
+}

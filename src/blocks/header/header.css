@@ -1,0 +1,34 @@
+@import url(./__logo/header__logo.css);
+@import url(./__button/header__button.css);
+@import url(./__title/header__title.css);
+@import url(./__title-email/header__title-email.css);
+
+.header {
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  max-width: 882px;
+  min-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 920px) {
+  .header {
+    width: calc(100% - 38px);
+
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .header {
+    padding-bottom: 31px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header{
+    width: 100%;
+  }
+}
+

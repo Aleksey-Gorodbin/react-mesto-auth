@@ -1,0 +1,19 @@
+@import url(./_hidden/card__button-delete_hidden.css);
+
+.card__button-delete {
+  background-image: url(../../../images/delete.svg);
+  background-size: cover;
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.card__button-delete:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

@@ -1,0 +1,10 @@
+.page {
+  font-family: "Inter", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #fff;
+  background-color: #000;
+  padding-top: 45px;
+  padding-bottom: 60px;
+}
+
+

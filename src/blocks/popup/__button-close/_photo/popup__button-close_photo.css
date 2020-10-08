@@ -1,0 +1,10 @@
+.popup__button-close_photo {
+  position: absolute;
+  left: calc(100% - 12px);
+}
+
+@media screen and (max-width: 550px) {
+  .popup__button-close_photo {
+    left: calc(100% - 8px);
+  }
+}

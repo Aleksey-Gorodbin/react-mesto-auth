@@ -1,0 +1,20 @@
+.header__title {
+  text-decoration: none;
+  color: #fff;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.header__title:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 750px) {
+  .header__title {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

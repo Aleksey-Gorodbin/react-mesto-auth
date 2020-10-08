@@ -1,0 +1,20 @@
+@import url(./__title/user-data__title.css);
+@import url(./__input/user-data__input.css);
+@import url(./__button/user-data__button.css);
+@import url(./__string/user-data__string.css);
+@import url(./__question/user-data__question.css);
+@import url(./__question-button/user-data__question-button.css);
+
+.user-data {
+  display: flex;
+  flex-direction: column;
+  max-width: 358px;
+  margin: 60px auto 20px;
+}
+
+@media screen and (max-width: 750px) {
+  .user-data {
+    max-width: 260px;
+    margin: 40px auto 0;
+  }
+}
