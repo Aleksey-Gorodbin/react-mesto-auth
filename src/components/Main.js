@@ -1,7 +1,7 @@
 import React from "react";
+import Card from "./Card.js";
 
 function Main(props) {
-
   return (
     <main className="content">
       <section className="profile">
@@ -36,7 +36,18 @@ function Main(props) {
         />
       </section>
       <ul className="elements">
-        {props.children}
+        {props.cards.map((card) => (
+          <Card
+            card={card}
+            onCardLike={() => props.handleCardLike(card)}
+            onCardClick={() => props.handleCardClick(card)}
+            onCardDelete={() => props.handleButtonDeleteClick(card)}
+            key={card._id}
+            url={card.link}
+            name={card.name}
+            count={card.likes.length}
+          />
+        ))}
       </ul>
     </main>
   );

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import * as auth from '../utils/utils';
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import * as auth from "../utils/utils";
 
 function Register(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const history = useHistory();
 
@@ -12,11 +12,13 @@ function Register(props) {
     evt.preventDefault();
     auth.register(password, email).then((res) => {
       try {
-        history.push('/profile');
+        history.push("/profile");
         props.onAuth();
         props.popup();
       } catch {
-        console.log('Что-то пошло не так!' || res.message[0].messages[0].message);
+        console.log(
+          "Что-то пошло не так!" || res.message[0].messages[0].message
+        );
         props.popup();
       }
     });
@@ -44,7 +46,9 @@ function Register(props) {
       <button className="user-data__button">Зарегистрироваться</button>
       <div className="user-data__string">
         <span className="user-data__question">Вы уже зарегистрированы?</span>
-        <Link to='sign-in' className="user-data__question-button">Войти</Link>
+        <Link to="sign-in" className="user-data__question-button">
+          Войти
+        </Link>
       </div>
     </form>
   );

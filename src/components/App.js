@@ -9,7 +9,6 @@ import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import DeleteCardPopup from "./DeleteCardPopup.js";
 import ProtectedRoute from "./ProtectedRoute.js";
-import Card from "./Card.js";
 import api from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Register from "./Register.js";
@@ -43,8 +42,9 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
 
   function handleRegisterPopupOpen() {
-    loggedIn ? setSuccessPopupOpen(!successPopupOpen) :
-    setFailPopupOpen(!failPopupOpen);
+    loggedIn
+      ? setSuccessPopupOpen(!successPopupOpen)
+      : setFailPopupOpen(!failPopupOpen);
   }
 
   function handleEditAvatarClick() {
@@ -158,27 +158,14 @@ function App() {
       });
   }
 
-  //Получение данных профиля с сервера
   React.useEffect(() => {
-    api
-      .getInfoUser()
-      .then((result) => {
+    Promise.all([api.getInfoUser(), api.getInitialCards()])
+      .then(([result, data]) => {
         setCurrentUser(result);
-      })
-      .catch((err) => {
-        console.error(err.message);
-      });
-  }, []);
-
-  //Получение данных карточек с сервера
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
         setCards(data);
       })
       .catch((err) => {
-        console.error(err.message);
+        console.log(err.message);
       });
   }, []);
 
@@ -191,6 +178,8 @@ function App() {
         if (res) {
           setLoggedIn(true);
           history.push("/profile");
+        } else {
+          localStorage.removeItem("jwt");
         }
       });
     }
@@ -219,18 +208,10 @@ function App() {
             userName={currentUser.name}
             userDescription={currentUser.about}
             userAvatar={currentUser.avatar}
-            children={cards.map((card) => (
-              <Card
-                card={card}
-                onCardLike={() => handleCardLike(card)}
-                onCardClick={() => handleCardClick(card)}
-                onCardDelete={() => handleButtonDeleteClick(card)}
-                key={card._id}
-                url={card.link}
-                name={card.name}
-                count={card.likes.length}
-              />
-            ))}
+            cards={cards}
+            handleCardLike={handleCardLike}
+            handleCardClick={handleCardClick}
+            handleButtonDeleteClick={handleButtonDeleteClick}
           />
           <Route path="/sign-in">
             <Login onAuth={onAuth} tokenCheck={tokenCheck} />

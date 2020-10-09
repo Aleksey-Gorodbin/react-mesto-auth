@@ -32,8 +32,8 @@ export const authorize = (password, email) => {
   })
     .then((response) => response.json())
     .then((data) => {
-        localStorage.setItem("jwt", data.token);
-      })
+      localStorage.setItem("jwt", data.token);
+    })
     .catch((err) => console.log(err));
 };
 
@@ -49,6 +49,3 @@ export const getContent = (token) => {
     .then((data) => data);
 };
 
-/* authorize('00', '0@mail.ru');
-getContent('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdkYzljNTg2MjAzNTAwMTI3ZGU3ZWQiLCJpYXQiOjE2MDIxNDQ3NTl9.u3nv-H8Bhqg7-eX0f2rG1JJRWZSdUYgxl-P4SlJlVGs')
- */

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import * as auth from '../utils/utils';
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import * as auth from "../utils/utils";
 
 function Login(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const history = useHistory();
 
   const resetForm = () => {
-    setPassword('');
-    setEmail('');
+    setPassword("");
+    setEmail("");
   };
 
   const handleSubmit = (evt) => {
@@ -18,21 +18,23 @@ function Login(props) {
 
     if (!email || !password) {
       return;
-    };
+    }
 
     auth.authorize(password, email).then((res) => {
       try {
         resetForm();
         props.onAuth();
-        history.push('/profile');
+        history.push("/profile");
       } catch (error) {
-        console.log('Что-то пошло не так!' || res.message[0].messages[0].message);
+        console.log(
+          "Что-то пошло не так!" || res.message[0].messages[0].message
+        );
       }
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}  autoComplete="off" className="user-data">
+    <form onSubmit={handleSubmit} autoComplete="off" className="user-data">
       <p className="user-data__title">Вход</p>
       <input
         className="user-data__input"
@@ -51,10 +53,12 @@ function Login(props) {
       <button className="user-data__button">Войти</button>
       <div className="user-data__string">
         <span className="user-data__question">Еще не зарегистрированы?</span>
-        <Link to="sign-up" className="user-data__question-button">Регистрация</Link>
+        <Link to="sign-up" className="user-data__question-button">
+          Регистрация
+        </Link>
       </div>
     </form>
   );
-};
+}
 
 export default Login;
