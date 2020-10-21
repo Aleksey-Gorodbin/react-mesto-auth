@@ -6,17 +6,22 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.3",
+    "validator": "^13.1.17"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "dev": "gh-pages -d build",
+    "deploy": "npm run build && scp -r ./build/* pzdc@178.154.233.102://home/pzdc/news-frontend"
   },
   "eslintConfig": {
     "extends": "react-app"

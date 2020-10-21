@@ -7,7 +7,7 @@ class API {
   }
   //загружаем данные о профиле с сервера--------------
   getInfoUser() {
-    return fetch(`${this._url}/v1/${this._cohort}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       headers: {
         authorization: this._authorization,
         "Content-type": `${this._contentType}`,
@@ -18,7 +18,7 @@ class API {
   }
   //загружаем начальные карточки с сервера------------------
   getInitialCards() {
-    return fetch(`${this._url}/v1/${this._cohort}/cards`, {
+    return fetch(`${this._url}/cards`, {
       headers: {
         authorization: this._authorization,
         "Content-type": `${this._contentType}`,
@@ -30,7 +30,7 @@ class API {
 
   //редактируем профиль-------------
   changeProfile(name, about) {
-    return fetch(`${this._url}/v1/${this._cohort}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
@@ -47,7 +47,7 @@ class API {
 
   //добавляем новую карточку-------------
   addNewCard(name, link) {
-    return fetch(`${this._url}/v1/${this._cohort}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: {
         authorization: this._authorization,
@@ -64,7 +64,7 @@ class API {
 
   //Отображение количества лайков карточки-------------
   addLikes(cardId) {
-    return fetch(`${this._url}/v1/${this._cohort}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: {
         authorization: this._authorization,
@@ -76,7 +76,7 @@ class API {
   }
   //_______________________________________
   removeLikes(cardId) {
-    return fetch(`${this._url}/v1/${this._cohort}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: {
         authorization: this._authorization,
@@ -89,7 +89,7 @@ class API {
 
   //Удаление карточки-------------------------------------------------
   deleteCards(cardId) {
-    return fetch(`${this._url}/v1/${this._cohort}/cards/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: {
         authorization: this._authorization,
@@ -101,7 +101,7 @@ class API {
   }
   //смена аватара-------------
   changeAvatar(link) {
-    return fetch(`${this._url}/v1/${this._cohort}/users/me/avatar`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
@@ -128,10 +128,9 @@ class API {
 
 //создание экземпляра API______________________________________________________
 const api = new API({
-  url: "https://mesto.nomoreparties.co",
-  cohort: "cohort-13",
+  url: "http://api.pzdc.students.nomoreparties.xyz",
   headers: {
-    authorization: "c953f0b4-8498-4223-9bb1-f908f25220bf",
+    authorization: `Bearer ${localStorage.getItem("jwt")}`,
     "Content-type": "application/json",
   },
 });
