@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.pzdc.students.nomoreparties.space";
+export const BASE_URL = "https://api.pzd.students.nomoreparties.space";
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {

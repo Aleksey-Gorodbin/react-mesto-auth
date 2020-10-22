@@ -128,7 +128,7 @@ class API {
 
 //создание экземпляра API______________________________________________________
 const api = new API({
-  url: "https://api.pzdc.students.nomoreparties.space",
+  url: "https://api.pzd.students.nomoreparties.space",
   headers: {
     authorization: `Bearer ${localStorage.getItem("jwt")}`,
     "Content-type": "application/json",
