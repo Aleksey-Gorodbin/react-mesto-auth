@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import logo from "../images/logo.svg";
-import * as auth from "../utils/utils";
+import api from "../utils/api";
 
 function Header() {
   const history = useHistory();
@@ -12,16 +12,13 @@ function Header() {
 
   const [email, setEmail] = useState("");
 
-  const getEmail = () => {
-    //let jwt = localStorage.getItem("jwt");
-    return auth.getContent().then((res) => {
-      setEmail("hhh");///////////////
-    });
-  };
-
   React.useEffect(() => {
-    getEmail();
-  }, []);
+    api.getInfoUser()
+    .then((res) => {
+      setEmail(res.data.email);
+    })
+    .catch(e => console.log(e.message));
+  }, [email]);
 
   return (
     <header className="header">

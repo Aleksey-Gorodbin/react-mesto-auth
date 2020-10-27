@@ -7,7 +7,7 @@ class API {
   }
   //загружаем данные о профиле с сервера--------------
   getInfoUser() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/users/info`, {
       headers: {
         authorization: this._authorization,
         "Content-type": `${this._contentType}`,
@@ -59,12 +59,12 @@ class API {
       }),
     })
       .then(this._handleResponse)
-      
+      .then(data => data.data);  
   }
 
   //Отображение количества лайков карточки-------------
   addLikes(cardId) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
         authorization: this._authorization,
@@ -72,11 +72,11 @@ class API {
       },
     })
       .then(this._handleResponse)
-      
+      .then(data => data.data);
   }
   //_______________________________________
   removeLikes(cardId) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: {
         authorization: this._authorization,
@@ -84,7 +84,7 @@ class API {
       },
     })
       .then(this._handleResponse)
-      
+      .then(data => data.data);
   }
 
   //Удаление карточки-------------------------------------------------
@@ -97,7 +97,7 @@ class API {
       },
     })
       .then(this._handleResponse)
-      
+      .then(data => data.data);
   }
   //смена аватара-------------
   changeAvatar(link) {

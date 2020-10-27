@@ -13,7 +13,6 @@ import api from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Register from "./Register.js";
 import Login from "./Login.js";
-import * as auth from "../utils/utils";
 import InfoTooltip from "./InfoTooltip.js";
 import win from "../images/win.svg";
 import loss from "../images/loss.svg";
@@ -80,7 +79,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     if (!isLiked) {
       api
@@ -126,7 +125,7 @@ function App() {
     api
       .changeProfile(dataProfile.name, dataProfile.about)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
       })
       .catch((err) => {
         console.error(err.message);
@@ -140,7 +139,7 @@ function App() {
     api
       .changeAvatar(dataAvatar.link)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -161,35 +160,31 @@ function App() {
   }
 
   React.useEffect(() => {
-    let jwt = localStorage.getItem("jwt");
-    auth.getContent(jwt)
+    api.getInfoUser()
       .then((result) => {
-        setCurrentUser(result);
+        setCurrentUser(result.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [setLoggedIn]);
 
-  /* React.useEffect(() => {
+  React.useEffect(() => {
     api.getInitialCards()
       .then((data) => {
-        if(!data){
-          setCards([]);
-        }
-        setCards(data);
+        setCards(data.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []); */
+  }, [setLoggedIn]);
 
   const history = useHistory();
 
   const tokenCheck = () => {
     let jwt = localStorage.getItem("jwt");
     if (jwt) {
-      auth.getContent( jwt ).then((res) => {
+      api.getInfoUser().then((res) => {
         if (res) {
           setLoggedIn(true);
           history.push("/profile");
@@ -227,7 +222,7 @@ function App() {
             userName={currentUser.name}
             userDescription={currentUser.about}
             userAvatar={currentUser.avatar}
-            cards={cards || []}
+            cards={cards}
             handleCardLike={handleCardLike}
             handleCardClick={handleCardClick}
             handleButtonDeleteClick={handleButtonDeleteClick}
