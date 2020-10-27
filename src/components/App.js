@@ -41,10 +41,12 @@ function App() {
   // Переменная для настройки роутинга
   const [loggedIn, setLoggedIn] = React.useState(false);
 
+  const [success, setSuccess] = React.useState(false);
+
   function handleRegisterPopupOpen() {
-    loggedIn
-      ? setSuccessPopupOpen(!successPopupOpen)
-      : setFailPopupOpen(!failPopupOpen);
+    success
+      ? setFailPopupOpen(!failPopupOpen)
+      : setSuccessPopupOpen(!successPopupOpen);
   }
 
   function handleEditAvatarClick() {
@@ -159,22 +161,35 @@ function App() {
   }
 
   React.useEffect(() => {
-    Promise.all([api.getInfoUser(), api.getInitialCards()])
-      .then(([result, data]) => {
+    let jwt = localStorage.getItem("jwt");
+    auth.getContent(jwt)
+      .then((result) => {
         setCurrentUser(result);
-        setCards(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
 
+  /* React.useEffect(() => {
+    api.getInitialCards()
+      .then((data) => {
+        if(!data){
+          setCards([]);
+        }
+        setCards(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []); */
+
   const history = useHistory();
 
   const tokenCheck = () => {
     let jwt = localStorage.getItem("jwt");
     if (jwt) {
-      auth.getContent(jwt).then((res) => {
+      auth.getContent( jwt ).then((res) => {
         if (res) {
           setLoggedIn(true);
           history.push("/profile");
@@ -189,8 +204,12 @@ function App() {
     tokenCheck();
   }, []);
 
-  const onAuth = () => {
-      setLoggedIn(true);
+  function notify(){
+    setSuccess(true);
+  }
+
+  function onAuth() {
+    setLoggedIn(true);
   };
 
   return (
@@ -208,7 +227,7 @@ function App() {
             userName={currentUser.name}
             userDescription={currentUser.about}
             userAvatar={currentUser.avatar}
-            cards={cards}
+            cards={cards || []}
             handleCardLike={handleCardLike}
             handleCardClick={handleCardClick}
             handleButtonDeleteClick={handleButtonDeleteClick}
@@ -217,7 +236,7 @@ function App() {
             <Login onAuth={onAuth} tokenCheck={tokenCheck} />
           </Route>
           <Route path="/sign-up">
-            <Register onAuth={onAuth} popup={handleRegisterPopupOpen} />
+            <Register notify={notify} popup={handleRegisterPopupOpen} />
           </Route>
           <Route>
             {<Redirect to={`/${loggedIn ? "profile" : "sign-in"}`} />}

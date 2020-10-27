@@ -1,6 +1,6 @@
 export const BASE_URL = "https://api.pzd.students.nomoreparties.space";
 
-export const register = (password, email) => {
+export const register = (password, email, name, about, avatar) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -10,6 +10,9 @@ export const register = (password, email) => {
     body: JSON.stringify({
       password,
       email,
+      name,
+      about,
+      avatar
     }),
   })
     .then((response) => {
@@ -37,15 +40,14 @@ export const authorize = (password, email) => {
     .catch((err) => console.log(err));
 };
 
-export const getContent = (token) => {
+ export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
   })
     .then((res) => res.json())
-    .then((data) => data);
 };
 

@@ -20,17 +20,17 @@ function Login(props) {
       return;
     }
 
-    auth.authorize(password, email).then((res) => {
-      try {
+    auth.authorize(password, email)
+    .then((res) => {
         resetForm();
         props.onAuth();
         history.push("/profile");
-      } catch (error) {
+      })
+      .catch((error) => {
         console.log(
-          "Что-то пошло не так!" || res.message[0].messages[0].message
+          "Что-то пошло не так!" || error.message[0].messages[0].message
         );
-      }
-    });
+      });
   };
 
   return (

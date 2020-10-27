@@ -13,9 +13,9 @@ function Header() {
   const [email, setEmail] = useState("");
 
   const getEmail = () => {
-    let jwt = localStorage.getItem("jwt");
-    return auth.getContent(jwt).then((res) => {
-      setEmail(res.data.email);
+    //let jwt = localStorage.getItem("jwt");
+    return auth.getContent().then((res) => {
+      setEmail("hhh");///////////////
     });
   };
 

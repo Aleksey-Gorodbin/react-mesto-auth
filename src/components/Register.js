@@ -10,18 +10,21 @@ function Register(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    auth.register(password, email).then((res) => {
-      try {
-        history.push("/profile");
-        props.onAuth();
+    auth.register(password, email,
+      'Жак-Ив Густо',
+      'Исследователь',
+      'https://infokotiki.ru/wp-content/uploads/2019/01/kot-spit-s-visunutim-yazikom.jpg')
+      .then((res) => {
+        history.push("/sign-in");
+        props.notify();
         props.popup();
-      } catch {
-        console.log(
-          "Что-то пошло не так!" || res.message[0].messages[0].message
-        );
-        props.popup();
-      }
-    });
+    })
+    .catch(err => {
+      console.log(
+        "Что-то пошло не так!" || err.message[0].messages[0].message
+      );
+      props.popup(false);
+    })
   };
 
   return (
