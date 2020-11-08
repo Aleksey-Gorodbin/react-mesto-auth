@@ -18,7 +18,7 @@ function Header() {
       setEmail(res.data.email);
     })
     .catch(e => console.log(e.message));
-  }, [email]);
+  }, []);
 
   return (
     <header className="header">

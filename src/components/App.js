@@ -167,7 +167,7 @@ function App() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [setLoggedIn]);
+  }, []);
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -177,7 +177,7 @@ function App() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [setLoggedIn]);
+  }, []);
 
   const history = useHistory();
 
